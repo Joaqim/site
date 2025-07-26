@@ -62,6 +62,6 @@ jobs:
         uses: "actions/upload-pages-artifact@v3.0.1"
         with:
           name: site
-          path: result/
+          path: result
           # Default is 90 days, let ensure we don't use stale builds:
           retention-days: 2
