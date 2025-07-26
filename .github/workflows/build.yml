@@ -62,7 +62,7 @@ jobs:
         id: deployment
         uses: "actions/upload-pages-artifact@v3.0.1"
         with:
-          path: result
+          path: result/public
 
   deploy:
     if: (!inputs.dry-run)
