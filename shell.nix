@@ -6,7 +6,7 @@
   prettierd,
   typescript,
   nodePackages,
-
+  vips,
   callPackage,
 }:
 let
@@ -21,6 +21,7 @@ mkShellNoCC {
     eslint_d
     prettierd
     typescript
+    vips
   ];
 
   NUXT_TELEMETRY_DISABLED = 1;

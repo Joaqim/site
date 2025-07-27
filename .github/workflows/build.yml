@@ -48,7 +48,7 @@ jobs:
         with:
           send-statistics: false
 
-      - name: Install Nix with Attic Cache
+      - name: Install Nix and Configure Attic Binary Cache
         uses: Joaqim/pkgs/.github/actions/install-nix-with-attic-cache@main
         with:
           attic-endpoint: ${{ vars.ATTIC_ENDPOINT }}
