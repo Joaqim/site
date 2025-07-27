@@ -40,7 +40,11 @@ buildNpmPackage {
     vips
   ];
 
-  env.NUXT_TELEMETRY_DISABLED = 1;
+  env = {
+    NUXT_TELEMETRY_DISABLED = 1;
+    NUXT_APP_BASE_URL = "/site/";
+    NUXT_PUBLIC_API_BASE = "https://joaqim.github.io";
+  };
 
   npmDepsHash = "sha256-/tro2cMIrFVKJo0Ds7y+sNTqjKNyrYEM6+zw01kNKjs=";
 
@@ -50,11 +54,13 @@ buildNpmPackage {
     ln -s ${roboto}/share/fonts/opentype/Roboto-*.otf public/_fonts/
   '';
 
+  npmBuildFlags = "--preset github_pages";
+
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp -r .output/* $out/
+    cp -r github_pages/.output/* $out/
 
     mkdir $out/bin
     makeWrapper ${lib.getExe nodejs_22} $out/bin/server \

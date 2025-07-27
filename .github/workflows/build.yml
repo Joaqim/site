@@ -47,12 +47,23 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v11
         with:
           send-statistics: false
-    
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v18
+
+      - name: Install Nix with Attic Cache
+        uses: Joaqim/pkgs/.github/actions/install-nix-with-attic-cache@main
         with:
-          logger: pretty
-          diagnostic-endpoint: ""
+          attic-endpoint: ${{ vars.ATTIC_ENDPOINT }}
+          attic-cache-name: jqpkgs
+          extra-nix-config: |
+            substituters = https://nix-community.cachix.org?priority=41 https://numtide.cachix.org?priority=42 https://cache.nixos.org/
+            trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            extra-substituters = ${{ vars.MY_BINARY_CACHE }}?priority=43
+            extra-trusted-public-keys = ${{ vars.MY_BINARY_CACHE_PUBLIC_KEY }}
+          tailscale-oauth-client-id: ${{ vars.TS_OAUTH_CLIENT_ID }}
+          
+          # Secrets
+          tailscale-oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          attic-token: ${{ secrets.ATTIC_TOKEN }}
+          github-token: ${{ secrets.GH_READ_TOKEN }}
           
       - name: Build Site
         run: nix build -L

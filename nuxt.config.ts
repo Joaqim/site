@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@nuxt/test-utils",
     "@nuxt/ui",
-    //"@nuxt/fonts",
   ],
   fonts: {
     families: [{ name: "Source Code Pro", provider: "none" }],
