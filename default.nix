@@ -48,23 +48,13 @@ buildNpmPackage {
 
   npmDepsHash = "sha256-/tro2cMIrFVKJo0Ds7y+sNTqjKNyrYEM6+zw01kNKjs=";
 
-  postPatch = ''
-    mkdir -p public/_fonts
-    ln -s ${source-code-pro}/share/fonts/opentype/SourceCodePro-*.otf public/_fonts/
-    ln -s ${roboto}/share/fonts/opentype/Roboto-*.otf public/_fonts/
-  '';
-
-  npmBuildFlags = "--preset github_pages";
+  npmBuildScript = "generate";
 
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp -r github_pages/.output/* $out/
-
-    mkdir $out/bin
-    makeWrapper ${lib.getExe nodejs_22} $out/bin/server \
-      --append-flags $out/server/index.mjs
+    cp -r .output/* $out/
 
     runHook postInstall
   '';
