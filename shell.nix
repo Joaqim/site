@@ -10,6 +10,8 @@
   callPackage,
 }:
 let
+  # Just to provide dependencies in shell, actual development
+  # is done by using preferred node package manager
   defaultPackage = callPackage ./default.nix { };
 in
 mkShellNoCC {
@@ -17,7 +19,9 @@ mkShellNoCC {
 
   packages = [
     nodejs_22
-    nodePackages."@antfu/ni" # Automatically use the right package manager, npm, yarn, pnpm...
+
+    # Automatically use the right package manager, npm, yarn, pnpm, etc...
+    nodePackages."@antfu/ni"
     eslint_d
     prettierd
     typescript

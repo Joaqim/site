@@ -8,7 +8,10 @@
   python3,
   vips,
   source-code-pro,
-  roboto,
+  # Configuration options
+  enableServer ? false, # Set to true for server deployment, false for static generation
+  baseUrl ? if enableServer then "/" else "/site/",
+  apiBase ? if enableServer then "http://localhost:3000" else "https://joaqim.github.io",
 }:
 let
   src = lib.cleanSourceWith {
@@ -24,7 +27,7 @@ let
 in
 buildNpmPackage {
   pname = "joaqim-site";
-  version = "0-unstable-2025-07-26";
+  version = "0-unstable-2025-07-28";
 
   inherit src;
 
@@ -40,15 +43,25 @@ buildNpmPackage {
     vips
   ];
 
-  env = {
-    NUXT_TELEMETRY_DISABLED = 1;
-    NUXT_APP_BASE_URL = "/site/";
-    NUXT_PUBLIC_API_BASE = "https://joaqim.github.io";
-  };
+  env =
+    {
+      NUXT_TELEMETRY_DISABLED = 1;
+    }
+    // lib.optionalAttrs (!enableServer) {
+      # Static generation specific environment variables
+      NUXT_APP_BASE_URL = baseUrl;
+      NUXT_PUBLIC_API_BASE = apiBase;
+    };
 
   npmDepsHash = "sha256-/tro2cMIrFVKJo0Ds7y+sNTqjKNyrYEM6+zw01kNKjs=";
 
-  npmBuildScript = "generate";
+  # Use generate for static sites, default build for server
+  npmBuildScript = if enableServer then "build" else "generate";
+
+  postPatch = lib.optionalString enableServer ''
+    mkdir -p public
+    ln -s ${source-code-pro}/share/fonts/opentype/SourceCodePro-*.otf public/
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -56,8 +69,22 @@ buildNpmPackage {
     mkdir $out
     cp -r .output/* $out/
 
+    ${lib.optionalString enableServer ''
+      # Create server wrapper for server deployment
+      mkdir $out/bin
+      makeWrapper ${lib.getExe nodejs_22} $out/bin/server \
+        --append-flags $out/server/index.mjs
+    ''}
+
     runHook postInstall
   '';
 
-  meta.description = "The source code joaqim.com site";
+  meta = {
+    description = "The source code for https://joaqim.github.io/site - ${
+      if enableServer then "server deployment" else "static generation"
+    }";
+    homepage = "https://github.com/Joaqim/site";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ ];
+  };
 }
