@@ -53,6 +53,7 @@ jobs:
         with:
           attic-endpoint: ${{ vars.ATTIC_ENDPOINT }}
           attic-cache-name: jqpkgs
+          attic-skip-push: true
           extra-nix-config: |
             substituters = https://nix-community.cachix.org?priority=41 https://numtide.cachix.org?priority=42 https://cache.nixos.org/
             trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
@@ -67,6 +68,9 @@ jobs:
           
       - name: Build Site
         run: nix build -L
+      
+      - name: Push result to Attic binary cache
+        run: attic push jqpkgs ./result
       
       - name: Upload Pages Artifact
         if: (!inputs.dry-run)
