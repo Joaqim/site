@@ -1,0 +1,15 @@
+# nix builds
+result
+
+# Generated content
+public/
+
+# Vendored via nix derivation
+/static/js/vendor/highlight
+
+# nix-direnv cache
+.direnv/
+
+
+# cloudflare wrangler
+.wrangler

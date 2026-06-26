@@ -1,0 +1,11 @@
+<entry>
+    <title type="html">{{ title | escape }}</title>
+    <link href="{{ link }}" />
+    <author>
+        <name>Joaqim Planstedt</name>
+    </author>
+    <id>{{ link }}</id>
+    <published>{{ created }}</published>
+    <updated>{{ updated }}</updated>
+    <summary type="html">{{ summary | escape }}</summary>
+</entry>

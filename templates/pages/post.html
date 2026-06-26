@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+{{ head }}
+
+<body>
+    <header>
+        {{ header }}
+    </header>
+    <main>
+        {{ content }}
+        <section class="post-metadata">
+            {% if created == updated %}
+            <p>Created: {{ created }}</p>
+            {% else %}
+            <p>Created: {{ created }}, Updated: {{ updated }}</p>
+            {% endif %}
+            <p>Tags: {{ tags }}</p>
+        </section>
+    </main>
+    <footer>
+        {{ footer-nav }}
+        {{ footer-common}}
+    </footer>
+</body>
+
+</html>

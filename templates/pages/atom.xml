@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+    <title>Joaqim Planstedt's Blog</title>
+    <link rel="self" href="https://blog.joaqim.com/atom.xml"/>
+    <link href="https://blog.joaqim.com/"/>
+    <updated>{{ updated }}</updated>
+    <author>
+        <name>Joaqim Planstedt</name>
+    </author>
+    <icon>/favicon-32x32.png</icon>
+    <id>https://blog.joaqim.com/</id>
+
+    {{ entries }}
+
+</feed>

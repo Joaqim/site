@@ -1,0 +1,45 @@
+From fab73bb7ed1d3b6c95b974b7fada5c99c3634b84 Mon Sep 17 00:00:00 2001
+From: Joaqim Planstedt <mail@joaqim.xyz>
+Date: Fri, 26 Jun 2026 13:12:00 +0200
+Subject: [PATCH] change defaults
+
+Signed-off-by: Joaqim Planstedt <mail@joaqim.xyz>
+---
+ src/main.rs | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/src/main.rs b/src/main.rs
+index e8a3d91..4b36acf 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -14,7 +14,7 @@ use pulldown_cmark::{html, CowStr, Event, Options as MDOptions, Parser as MDPars
+ use regex::Regex;
+ 
+ const IDX_NUM_RECENT_POSTS: u8 = 10;
+-const URL_BASE: &str = "https://blog.mplanchard.com";
++const URL_BASE: &str = "https://blog.joaqim.com";
+ 
+ const OUT_DIR: &str = "public";
+ 
+@@ -680,8 +680,7 @@ impl<'a> Context<'a> {
+     fn render_about_page(&self) -> String {
+         let globals = self.generic_globals(
+             "About",
+-            "Contact information for Matthew Planchard, and technical \
+-                      information about this blog",
++            "Contact information for Joaqim Planstedt",
+             self.blocks.about,
+         );
+         self.templates
+@@ -755,7 +754,7 @@ impl<'a> Context<'a> {
+             .render(&index_content_globals)
+             .expect("couldn't render index content");
+         let index_globals =
+-            self.generic_globals("Home", "Matthew Planchard's blog", &index_content);
++            self.generic_globals("Home", "Joaqim Planstedt's blog", &index_content);
+ 
+         self.templates
+             .pages
+-- 
+2.54.0
+
