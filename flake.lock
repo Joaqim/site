@@ -149,11 +149,11 @@
         "vitae": "vitae"
       },
       "locked": {
-        "lastModified": 1782569759,
-        "narHash": "sha256-smtvnjwaAeTFYEMxnQ/SGj+biAECqJfy+UnaQEBVqZM=",
+        "lastModified": 1782576955,
+        "narHash": "sha256-4ckSt6ojrJWdS6jF8JrSbSr2YD+Vhu5mBjxfwK89KM4=",
         "owner": "joaqim",
         "repo": "speedy",
-        "rev": "f8334507340f7ad76ffcde1db8be2d069b10a27d",
+        "rev": "bc4d5bc5bb93548ee0e2d5676c46f2dd6008a86c",
         "type": "gitlab"
       },
       "original": {
