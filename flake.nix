@@ -88,6 +88,131 @@
                             \( logo.png -resize 32x32 \) \
                             ./static/favicon.ico
                   '';
+                # Adapted from: https://stackoverflow.com/a/76264351
+                get-oldest-github-commit-date = pkgs.writeShellApplication {
+                  name = "get-oldest-github-commit-date";
+                  runtimeInputs = with pkgs; [
+                    curlMinimal
+                    gawk
+                  ];
+                  text = ''
+                    if [[ -n "$1" ]]; then
+                      REPO="$1"
+                    else
+                      read -rp "Repository (owner/repo): " REPO
+                    fi
+
+                    if [[ "''${REPO// }" == "" ]]; then
+                      echo "No repository provided."
+                      exit 1
+                    fi
+
+                    if [[ ! "$REPO" =~ ^[^/]+/[^/]+$ ]]; then
+                      echo "Invalid repository format. Expected: owner/repo"
+                      exit 1
+                    fi
+
+                    URL="https://api.github.com/repos/$REPO/commits"
+                    H=" -H \"Accept: application/vnd.github+json\" \
+                      -H \"X-GitHub-Api-Version: 2022-11-28\""
+
+                    response=$(curl -s -L --include "$H" "$URL" | awk 'NR > 1')
+
+                    # Split the output into header and json
+                    header=$(echo "$response" | awk 'BEGIN{RS="\r\n";ORS="\r\n"} /^[a-zA-Z0-9-]+:/')
+                    commits=$(echo "$response" | awk '!/^[a-zA-Z0-9-]+:/')
+
+                    # If paginated, get last page
+                    if [[ $header == *"link"* ]]; then
+                      # Extract the last page value
+                      link_line=$(echo "$header" | grep -i "^link:")
+                      last_page=$(echo "$link_line" | sed -n 's/.*page=\([0-9]\+\)[^0-9].*rel="last".*/\1/p')
+
+                      # Get last-page commits
+                      commits=$(curl -s -L "$H" "$URL?page=$last_page")
+                    fi
+
+                    # Print first commit
+                    commit_date="$(echo "$commits" | jq --raw-output '.[-1].commit.author.date')"
+                    echo "''${commit_date%T*}"
+                  '';
+                };
+
+                # Taken from https://gitlab.com/mplanchard/mplanchard.gitlab.io/-/blob/master/Makefile?ref_type=heads#L63
+                create-new-post = pkgs.writeShellScriptBin "create-new-post" ''
+                    read -rp "Post Title: " TITLE
+                    if [[ "''${TITLE// }" == "" ]]; then
+                  		echo -e "No title provided."
+                  		exit 1
+                  	fi
+                  	SLUG=$(echo -n "$TITLE" |
+                  		sed --regexp-extended 's/[  ]+/-/g' |
+                  		sed 's/[(),.!:]//g' |
+                  		awk '{ printf tolower($0) }' |
+                  	    jq --slurp --raw-input --raw-output '@uri')  # urlencode
+                  	DATE=$(date --iso-8601)
+                  	FNAME=$(echo "''${DATE}-''${SLUG}.md")
+                  	FPATH=$(echo "posts/''${FNAME}")
+                  	if [[ -e "$FPATH" ]]; then
+                  		echo "$FPATH" already exists!
+                  		exit 1
+                  	fi
+                    {
+                  	  echo "---"
+                      echo "draft: true"
+                      echo "title: $TITLE"
+                      echo "slug: $SLUG"
+                      echo "created: $DATE"
+                      echo "updated: $DATE"
+                      echo "tags:"
+                      echo "summary:"
+                  	  echo "---"
+                    } >> "$FPATH"
+                  	echo "Created new post in $FPATH"
+                '';
+                create-new-project-from-github-repository = pkgs.writeShellScriptBin "create-new-project-from-github-repository" ''
+                  if [[ -n "$1" ]]; then
+                      REPO="$1"
+                  else
+                    read -rp "Repository (owner/repo): " REPO
+                  fi
+
+                  if [[ "''${REPO// }" == "" ]]; then
+                    echo "No repository provided."
+                    exit 1
+                  fi
+
+                  if [[ ! "$REPO" =~ ^[^/]+/[^/]+$ ]]; then
+                    echo "Invalid repository format. Expected: owner/repo"
+                    exit 1
+                  fi
+
+                  read -rp "Project Title: " TITLE
+                  if [[ "''${TITLE// }" == "" ]]; then
+                    echo -e "No title provided."
+                    exit 1
+                  fi
+
+                  REPO_ID="''${REPO#*/}"
+                  FNAME=$(echo "$REPO_ID.md")
+                  FPATH=$(echo "projects/''${FNAME}")
+                  if [[ -e "$FPATH" ]]; then
+                    echo "$FPATH" already exists!
+                    exit 1
+                  fi
+                  CREATION_DATE="$(get-oldest-github-commit-date $REPO)"
+                  {
+                    echo "---"
+                    echo "title: $TITLE"
+                    echo "id: $REPO_ID"
+                    echo "repository: https://github.com/$REPO"
+                    echo "license: "
+                    echo "created: $CREATION_DATE"
+                    echo "status: "
+                    echo "---"
+                  } >> "$FPATH"
+                  echo "Created new project in $FPATH"
+                '';
               }
             )
           ];
@@ -105,11 +230,14 @@
               watchexec
 
               speedy
+              create-new-post
+              get-oldest-github-commit-date
+              create-new-project-from-github-repository
             ];
             ENVIRONMENT = "dev";
             AUTHOR_FULLNAME = "Joaqim Planstedt";
             URL_BASE = "blog.joaqim.com";
-            PROJECTS_SORT_ORDER = "plan,dotfiles,jqpkgs,balanced-dice-avr";
+            PROJECTS_SORT_ORDER = "site,speedy,plan,dotfiles,jqpkgs,balanced-dice-avr";
 
             shellHook = ''
               [ -d ./static/js/vendor/highlight ] || cp -RL --no-preserve=mode "${highlightjs}" ./static/js/vendor/highlight
