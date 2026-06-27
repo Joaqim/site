@@ -10,6 +10,9 @@ public/
 # nix-direnv cache
 .direnv/
 
-
 # cloudflare wrangler
 .wrangler
+
+# optional environment override
+.env
+!.env.example

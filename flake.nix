@@ -82,6 +82,10 @@
               speedy
             ];
             ENVIRONMENT = "dev";
+            AUTHOR_FULLNAME = "Joaqim Planstedt";
+            URL_BASE = "blog.joaqim.com";
+            PROJECTS_SORT_ORDER = "plan,dotfiles,jqpkgs,balanced-dice-avr";
+
             shellHook = ''
               [ -d ./static/js/vendor/highlight ] || cp -RL --no-preserve=mode "${highlightjs}" ./static/js/vendor/highlight
             '';
