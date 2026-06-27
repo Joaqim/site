@@ -149,17 +149,17 @@
         "vitae": "vitae"
       },
       "locked": {
-        "lastModified": 1779656045,
-        "narHash": "sha256-rB76xTbb/o2OGYPQfm2///t4V+5/ofUEsN/77VCy/RY=",
-        "owner": "mplanchard",
-        "repo": "mplanchard.gitlab.io",
-        "rev": "40e4d646f5219a06c46a7afad0ee44b164fea6a0",
+        "lastModified": 1782569759,
+        "narHash": "sha256-smtvnjwaAeTFYEMxnQ/SGj+biAECqJfy+UnaQEBVqZM=",
+        "owner": "joaqim",
+        "repo": "speedy",
+        "rev": "f8334507340f7ad76ffcde1db8be2d069b10a27d",
         "type": "gitlab"
       },
       "original": {
-        "owner": "mplanchard",
+        "owner": "joaqim",
         "ref": "master",
-        "repo": "mplanchard.gitlab.io",
+        "repo": "speedy",
         "type": "gitlab"
       }
     },

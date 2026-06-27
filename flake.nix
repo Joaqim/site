@@ -18,7 +18,7 @@
 
     # Generate Javascript, HTML and CSS for personal blog
     speedy = {
-      url = "gitlab:mplanchard/mplanchard.gitlab.io/master";
+      url = "gitlab:joaqim/speedy/master";
       # No need for extended compatibility
       inputs.flake-compat.follows = "";
     };
@@ -48,9 +48,6 @@
               {
                 inherit build;
                 speedy = speedy.overrideAttrs (_: {
-                  patches = [
-                    ./0001-change-defaults.patch
-                  ];
                   postPatch = ''
                     rm -r ./templates
                     cp -RL --no-preserve=mode ${./templates} ./templates

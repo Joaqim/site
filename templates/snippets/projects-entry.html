@@ -1,0 +1,14 @@
+<a href="#{{ id }}">
+  <h2 id="{{ id }}">{{ title }}</h2>
+</a>
+<ul>
+    <li><b>Repository:</b> {{ repository }}</li>
+    <li><b>License:</b> {{ license }}</li>
+    {% if created == "" %}
+      <li><b>Joined:</b> {{ joined }}</li>
+    {% else %}
+      <li><b>Created:</b> {{ created }}</li>
+    {% endif %}
+    <li><b>Status:</b> {{ status }}</li>
+</ul>
+{{ content }}
