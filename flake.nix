@@ -229,6 +229,8 @@
               coreutils
               watchexec
 
+              typos
+
               speedy
               create-new-post
               get-oldest-github-commit-date

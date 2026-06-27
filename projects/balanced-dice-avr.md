@@ -10,7 +10,7 @@ Arduino AVR port of [blog.colonist.io/designing-balanced-dice](https://blog.colo
 
 <details>
   <summary>Physical Dice Roller</summary>
-Was succesfully run on hardware:
+Was successfully run on hardware:
 
 - **Board:** `ATTiny85`
 - **Display:** `OLED Graphic Display 128x64 - I2C`
