@@ -1,19 +1,20 @@
 {
-	"name": "joaqim-site",
-	"compatibility_date": "2025-10-06",
-	"compatibility_flags": [
-		"global_fetch_strictly_public"
-	],
-	"assets": {
-		"directory": "./public",
-	},
-	"observability": {
-		"enabled": true,
-	},
-	"routes": [
-		{
-			"pattern": "blog.joaqim.com",
-			"custom_domain": true,
-		},
-	]
+  "name": "joaqim-site",
+  "compatibility_date": "2025-10-06",
+  "compatibility_flags": [
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "blog.joaqim.com",
+      "custom_domain": true
+    }
+  ]
 }
