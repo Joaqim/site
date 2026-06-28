@@ -29,7 +29,7 @@ if [[ -e $FPATH ]]; then
   echo "$FPATH" already exists!
   exit 1
 fi
-CREATION_DATE="$(get-oldest-github-commit-date "$REPO")"
+CREATION_DATE="$(get-first-github-commit-date "$REPO")"
 {
   echo "---"
   echo "title: $TITLE"
