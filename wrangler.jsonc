@@ -5,7 +5,7 @@
     "global_fetch_strictly_public"
   ],
   "build": {
-    "command": "git clean -xdf ./public && ENVIRONMENT=\"\" speedy generate",
+    "command": "ENVIRONMENT=\"\" nix run --impure .#build",
   },
   "assets": {
     "directory": "./public",
