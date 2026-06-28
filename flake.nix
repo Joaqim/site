@@ -131,6 +131,7 @@
               buildInputs = with pkgs; [
                 bashInteractive
                 coreutils
+                watchexec
 
                 speedy
                 generate-icons
