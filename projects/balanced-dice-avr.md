@@ -7,7 +7,9 @@ created: 2022-08-01
 status: not active
 ---
 
-Arduino AVR port of [blog.colonist.io/designing-balanced-dice](https://blog.colonist.io/designing-balanced-dice). I found a lot of inspirations from [github.com/Lorandil/ATTiny85-optimization-guide](https://github.com/Lorandil/ATTiny85-optimization-guide) for optimizing beyond original scope.
+Arduino AVR port of [blog.colonist.io/designing-balanced-dice](https://blog.colonist.io/designing-balanced-dice).
+
+I found a lot of inspiration from [github.com/Lorandil/ATTiny85-optimization-guide](https://github.com/Lorandil/ATTiny85-optimization-guide) for optimizing beyond original scope.
 
 <details>
   <summary>Physical Dice Roller</summary>
