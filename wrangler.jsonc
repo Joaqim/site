@@ -4,6 +4,9 @@
   "compatibility_flags": [
     "global_fetch_strictly_public"
   ],
+  "build": {
+    "command": "git clean -xdf ./public && ENVIRONMENT=\"\" speedy generate",
+  },
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page"
