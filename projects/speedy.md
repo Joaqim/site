@@ -9,4 +9,4 @@ status: active
 
 A simple fork of the minimal Rust HTML, CSS and Javascript generator `speedy` as found in [gitlab.com/mplanchard/mplanchard.gitlab.io](https://gitlab.com/mplanchard/mplanchard.gitlab.io).
 
-Actively used to generate this site, see [This Website](#site).
+Actively used to generate [This Website](#site).
