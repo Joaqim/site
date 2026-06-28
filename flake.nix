@@ -100,8 +100,9 @@
                     trap 'jobs -p | xargs kill' EXIT
                     watchexec \
                         --watch posts \
+                        --watch projects \
                         --watch static \
-                        ${lib.getExe final.speedy} generate
+                        speedy generate
                   '';
                   generate-icons = pkgs.writeShellScriptBin "generate-icons" (
                     builtins.readFile ./scripts/generate-icons.sh
