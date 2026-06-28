@@ -229,6 +229,7 @@
               coreutils
               watchexec
 
+              dprint
               typos
 
               speedy
