@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: AI
 slug: ai
 created: 2026-07-31
