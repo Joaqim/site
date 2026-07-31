@@ -9,6 +9,10 @@ stdenvNoCC.mkDerivation rec {
       hash = "sha256-xKOZ3W9Ii8l6NUbjR2dHs+cUyZxXuUcxVMb7jSWbk4E=";
     })
     (fetchurl {
+      url = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@${version}/build/languages/nix.min.js";
+      hash = "sha256-j4dmtrr8qUODoICuOsgnj1ojTAmxbKe00mE5sfElC/I=";
+    })
+    (fetchurl {
       url = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@${version}/build/styles/base16/gruvbox-dark-pale.min.css";
       hash = "sha256-2D8yseRyYPFPoRAX4ZnELXQKw27MT01QAjE9mxHW25g=";
     })
@@ -34,7 +38,12 @@ stdenvNoCC.mkDerivation rec {
 
     # vendored javascript
     mkdir -p "$path"
-    cp -RL --no-preserve=mode *.js "$path"
+    cp -RL --no-preserve=mode highlight.min.js "$path"
+
+    # languages
+    languages_path="$path/languages/"
+    mkdir -p "$languages_path"
+    cp -RL --no-preserve=mode nix.min.js "$languages_path"
 
     # vendored CSS
     css_path="$path/styles/base16"
