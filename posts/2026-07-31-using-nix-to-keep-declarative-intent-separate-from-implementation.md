@@ -13,7 +13,7 @@ The intent of this blog post is not to explain [Nix](https://nixos.org), [NixOS]
 At work, we were looking at open-source shipping tracker aggregates, primarily for ordering labels from local post services.
 
 We found [karrio](https://github.com/karrioapi/karrio) which has excellent support for custom integration.
-Specifically, it has AI-coding instructions for incremental creation of custom connections, and any pull requests for new features promises at least 2 employees for human verification before any merge. This allows for quick return on investment for any time spent "vibe-coding" our solution for a bespoke postal service integration.
+Specifically, it has AI-coding instructions for incremental creation of custom connections, and any pull requests for new features promises at least 2 employees for human verification before any merge. This allows for quick return on investment for any time spent "vibe-coding".
 
 For actual deployment on server hardware, I used [NixOS](https://nixos.org/)—which is also my daily driver. The `nix` module for karrio can now be found at [karrio-nix](https://github.com/Joaqim/karrio-nix), specifically [karrio.nix](https://github.com/Joaqim/karrio-nix/blob/main/modules/karrio.nix).
 
@@ -47,6 +47,6 @@ services.karrio = {
 };
 ```
 
-The intent remains clear, and the `nix` module contains the documentation for how to configure it, which might be completely conformant to karrio documentation; a minimal functional deployment. Or optionally augmented with extended functionallity; like seeding the initial database via a separate systemd service, achieving true declarative deployment.
+The intent remains clear, and the `nix` module contains the documentation for how to configure it, which might be completely conformant to `karrio` documentation; a minimal functional deployment. Or optionally augmented with extended functionallity; like seeding the initial database via a separate systemd service, achieving true declarative deployment.
 
-For my purposes, I have a separate caddy configuration for http proxy to the exposed ports for api and dashboard, and my custom `karrio-nix` module could be extended with a lot of further options, not least custom ports for dashboard and API.
+For my purposes, I have a separate `caddy`` configuration for http proxy to the exposed ports for api and dashboard, and my custom`karrio-nix` module could be extended with a lot of further options, not least custom ports for dashboard and API.
