@@ -134,6 +134,8 @@
                 coreutils
                 watchexec
 
+                config.treefmt.programs.typos.package
+
                 speedy
                 generate-icons
                 create-new-post
@@ -143,7 +145,7 @@
               ENVIRONMENT = "dev";
               AUTHOR_FULLNAME = "Joaqim Planstedt";
               URL_BASE = "blog.joaqim.com";
-              PROJECTS_SORT_ORDER = "site,speedy,plan,dotfiles,jqpkgs,balanced-dice-avr";
+              PROJECTS_SORT_ORDER = "site,speedy,plan,dotfiles,jqpkgs,balanced-dice-avr,vic3-parser-rust,replace-colors-rs";
 
               shellHook = ''
                 [ -d ./static/js/vendor/highlight ] || cp -RL --no-preserve=mode "${pkgs.highlightjs}" ./static/js/vendor/highlight
