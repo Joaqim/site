@@ -1,11 +1,11 @@
 ---
 draft: false
-title: Using Nix to Keep Declarative Intent Separate from Implementation Code
-slug: using-nix-to-keep-declarative-intent-separate-from-implementation
+title: Using Nix for Enterprise
+slug: using-nix-for-enterprise
 created: 2026-07-31
 updated: 2026-08-06
 tags: Nix, karrio
-summary: 
+summary: Using Nix to Keep Declarative Intent Separate from Implementation Code 
 ---
 
 The intent of this blog post is not to explain [Nix](https://nixos.org),
